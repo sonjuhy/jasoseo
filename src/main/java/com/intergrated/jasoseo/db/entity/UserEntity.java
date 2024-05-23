@@ -1,9 +1,8 @@
 package com.intergrated.jasoseo.db.entity;
 
+import com.intergrated.jasoseo.api.dto.UserDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity {
     @Id
     @Column(name = "user_pk")
@@ -29,4 +28,20 @@ public class UserEntity {
 
     @Column(name = "registration_date")
     private Date registration;
+
+    @Builder
+    public UserEntity(int pk, String name, String id, String pw, Date registration) {
+        this.pk = pk;
+        this.name = name;
+        this.id = id;
+        this.pw = pw;
+        this.registration = registration;
+    }
+
+    public void changeInfoByDto(UserDto dto){
+        this.name = dto.getName();
+        this.id = dto.getId();
+        this.pw = dto.getPw();
+        this.registration = dto.getRegistration();
+    }
 }

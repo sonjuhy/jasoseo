@@ -8,7 +8,7 @@ import java.util.List;
 public interface AnnounceService {
     List<AnnouncementEntity> getAnnouncementAllList();
     List<AnnouncementEntity> getAnnouncementListByAccessToken(String accessToken);
-    List<AnnouncementEntity> getAnnouncementListByStartToEnd(String accessToken, int start, int end);
+    List<AnnouncementEntity> getAnnouncementListByStartToEnd(String accessToken, int page, int size);
 
     //
     void setAnnouncement(AnnouncementDto dto);

@@ -1,9 +1,8 @@
 package com.intergrated.jasoseo.db.entity;
 
+import com.intergrated.jasoseo.api.dto.ContentDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "content")
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ContentEntity {
     @Id
     @Column(name = "con_pk")
@@ -30,10 +29,21 @@ public class ContentEntity {
     @Column(name = "number")
     private int num;
 
-    @Column(name = "id")
-    private String id;
-
     @ManyToOne
     @JoinColumn(name = "announcement_fk", referencedColumnName = "ann_pk")
-    private AnnouncementEntity announcementEntity;
+    private AnnouncementEntity entity;
+
+    @Builder
+    public ContentEntity(String title, String content, Date registration, int num) {
+        this.title = title;
+        this.content = content;
+        this.registration = registration;
+        this.num = num;
+    }
+    public void changeInfoByDto(ContentDto dto){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.registration = dto.getRegistration();
+        this.num = dto.getNum();
+    }
 }

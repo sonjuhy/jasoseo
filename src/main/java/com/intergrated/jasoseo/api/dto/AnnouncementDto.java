@@ -1,9 +1,14 @@
 package com.intergrated.jasoseo.api.dto;
 
-import com.intergrated.jasoseo.db.entity.UserEntity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
+@Getter
+@Setter
+@ToString
 public class AnnouncementDto {
     private int pk;
     private String title;
@@ -11,5 +16,5 @@ public class AnnouncementDto {
     private Date startDay;
     private Date endDay;
     private int companyName;
-    private UserEntity entity;
+    private int userPk;
 }

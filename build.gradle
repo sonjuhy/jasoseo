@@ -43,6 +43,8 @@ dependencies {
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 	// webClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	implementation 'com.google.guava:guava:33.2.0-jre'
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

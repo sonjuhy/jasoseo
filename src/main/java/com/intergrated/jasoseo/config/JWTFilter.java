@@ -1,9 +1,12 @@
 package com.intergrated.jasoseo.config;
 
+import com.intergrated.jasoseo.api.service.AuthServiceImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +17,8 @@ import java.util.Date;
 
 @Configuration
 public class JWTFilter {
+    Logger logger = LoggerFactory.getLogger(JWTFilter.class);
+
 //    @Value("")
     private String jwtKey;
 
@@ -21,6 +26,7 @@ public class JWTFilter {
     private int jwtRefreshTokenExpirationMinutes = 0;
 
     public String createToken(String subject, int userId, boolean mode){ // mode true : accessToken, false : refreshToken
+        logger.info("JWTFilter createToken start");
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + (mode ? jwtAccessTokenExpirationMinutes : jwtRefreshTokenExpirationMinutes) * 60 * 1000);
         Key key = getSigningKey();

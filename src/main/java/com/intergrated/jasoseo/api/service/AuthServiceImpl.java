@@ -18,15 +18,28 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class AuthServiceImpl implements AuthService{
     Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
-    @Autowired
+//    @Autowired
+//    private JWTFilter jwtFilter;
+//    @Autowired
+//    private UserService userService;
+//    @Autowired
+//    private UserTokenService userTokenService;
+
     private JWTFilter jwtFilter;
-    @Autowired
     private UserService userService;
-    @Autowired
     private UserTokenService userTokenService;
+
+    @Autowired
+    public AuthServiceImpl(JWTFilter jwtFilter, UserService userService, UserTokenService userTokenService) {
+        this.jwtFilter = jwtFilter;
+        this.userService = userService;
+        this.userTokenService = userTokenService;
+    }
 
     @Override
     public String signIn(LoginDto dto) {
+        System.out.println("AuthServiceImpl dto : " + dto.toString());
+        logger.info("service signIn dto : "+dto.toString());
         String resultJson = userService.signIn(dto);
         return resultJson;
     }

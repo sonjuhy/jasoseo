@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class ContentServiceImpl implements ContentService{
 
-    @Autowired
     private ContentRepository contentRepository;
+
+    @Autowired
+    public ContentServiceImpl(ContentRepository contentRepository) {
+        this.contentRepository = contentRepository;
+    }
 
     @Override
     public List<ContentEntity> getContentEntityAll(int pk) {

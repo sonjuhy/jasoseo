@@ -25,12 +25,23 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    @Autowired
+//    @Autowired
+//    private UserRepository userRepository;
+//    @Autowired
+//    private JWTFilter jwtFilter;
+//    @Autowired
+//    private UserTokenService userTokenService;
+
     private UserRepository userRepository;
-    @Autowired
     private JWTFilter jwtFilter;
-    @Autowired
     private UserTokenService userTokenService;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, JWTFilter jwtFilter, UserTokenService userTokenService) {
+        this.userRepository = userRepository;
+        this.jwtFilter = jwtFilter;
+        this.userTokenService = userTokenService;
+    }
 
     @Override
     public UserEntity findByPk(int userId) {
@@ -82,6 +93,7 @@ public class UserServiceImpl implements UserService{
             jsonObject.addProperty("result", "error");
             jsonObject.addProperty("msg","Wrong id & password");
         }
+        logger.info("user service impl signIn : " + gson.toJson(jsonObject));
         return gson.toJson(jsonObject);
     }
 

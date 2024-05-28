@@ -1,44 +1,80 @@
-import logo from "../logo.svg";
 import "../App.css";
+import "./main.css";
 import { useState, useEffect } from "react";
 
-import { Button } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#ffffff", // 흰색을 primary 색상으로 설정
+    },
+  },
+});
+const CustomTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiInputBase-root": {
+    backgroundColor: "rgba(255, 255, 255, 0.2)", // 반투명한 흰색 배경
+    borderRadius: "25px",
+  },
+}));
 function App() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("/hi")
-      .then((res) => {
-        return res.json();
-      })
-      .then(function (result) {
-        setData(result);
-      });
-  }, []);
+  const navigator = useNavigate();
+
+  const clickLoginButton = () => {
+    // login sequence
+    navigator("/writer");
+  };
+  // useEffect(() => {
+  //   fetch("/hi")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then(function (result) {
+  //       setData(result);
+  //     });
+  // }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <br />
-        <ul>
-          {data.map((v, index) => (
-            <li key={`${index}-${v}`}>{v}</li>
-          ))}
-        </ul>
-        <Button variant="contained" href="/writer">
-          Move
-        </Button>
-      </header>
+    <div className="main_bg">
+      <ThemeProvider theme={theme}>
+        <Stack spacing={4} sx={{ width: "20vw" }}>
+          <Typography
+            variant="overline"
+            textAlign={"center"}
+            color={"white"}
+            fontSize={32}
+          >
+            user login
+          </Typography>
+          <CustomTextField
+            label="ID"
+            color="primary"
+            InputProps={{ style: { color: "white" } }}
+            InputLabelProps={{ style: { color: "white" } }}
+          />
+          <CustomTextField
+            label="Password"
+            type="password"
+            color="primary"
+            InputProps={{ style: { color: "white" } }}
+            InputLabelProps={{ style: { color: "white" } }}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              margin: "1rem",
+              borderRadius: "25px",
+              background: "white",
+              color: "black",
+            }}
+            onClick={clickLoginButton}
+          >
+            <Typography variant="overline">login</Typography>
+          </Button>
+        </Stack>
+      </ThemeProvider>
     </div>
   );
 }
